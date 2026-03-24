@@ -1,7 +1,91 @@
 About
------ 
+-----
+
+**drawio-desktop-mcp** is a fork of [drawio-desktop](https://github.com/jgraph/drawio-desktop) with a built-in [MCP (Model Context Protocol)](https://modelcontextprotocol.io/) server that lets AI agents create and edit diagrams directly in the running desktop app.
 
 **drawio-desktop** is a diagramming desktop app based on [Electron](https://electronjs.org/) that wraps the [core draw.io editor](https://github.com/jgraph/drawio).
+
+MCP Server
+----------
+
+The app includes an embedded MCP server on `http://127.0.0.1:9100/mcp` (Streamable HTTP transport) that starts automatically. Multiple AI agents can connect simultaneously and manipulate diagrams in real time.
+
+### Quick Start
+
+```bash
+# Clone (recursive for submodule)
+git clone --recursive https://github.com/ArdaUzun/drawio-desktop-mcp.git
+cd drawio-desktop-mcp
+
+# Install and run
+pnpm install
+pnpm start
+```
+
+The MCP server starts automatically on port 9100.
+
+### Connect Claude Code
+
+```bash
+claude mcp add drawio-desktop --transport http http://127.0.0.1:9100/mcp --scope user
+```
+
+Or add a `.mcp.json` to your project:
+
+```json
+{
+  "mcpServers": {
+    "drawio-desktop": {
+      "type": "http",
+      "url": "http://127.0.0.1:9100/mcp"
+    }
+  }
+}
+```
+
+### Available Tools (20)
+
+| Category | Tools |
+|----------|-------|
+| **Inspect** | `get-diagram-info`, `get-diagram-screenshot`, `get-selected-cell`, `list-paged-model` |
+| **Shapes** | `add-rectangle`, `add-cell-of-shape`, `edit-cell`, `delete-cell-by-id` |
+| **Edges** | `add-edge`, `edit-edge` |
+| **Shape Library** | `get-shape-categories`, `get-shapes-in-category`, `get-shape-by-name`, `set-cell-shape` |
+| **Layers** | `list-layers`, `get-active-layer`, `set-active-layer`, `create-layer`, `move-cell-to-layer` |
+| **Data** | `set-cell-data` |
+
+### Health Check
+
+```bash
+curl http://127.0.0.1:9100/health
+# {"status":"ok","tools":20,"windows":1,"pending":0}
+```
+
+### Flatpak Install
+
+```bash
+# Build unpacked electron app
+pnpm run build:dir
+pnpm run build:flatpak-prep
+
+# Build and install Flatpak (requires flatpak-builder + org.electronjs.Electron2.BaseApp//24.08)
+flatpak-builder --user --install --force-clean build-flatpak flatpak/com.jgraph.drawio.desktop.yml
+flatpak run com.jgraph.drawio.desktop//master
+```
+
+### Configuration
+
+| Setting | CLI Flag | Env Var | Default |
+|---------|----------|---------|---------|
+| MCP Port | `--mcp-port <n>` | `DRAWIO_MCP_PORT` | `9100` |
+
+### Updating from Upstream
+
+```bash
+git fetch upstream
+git merge upstream/dev
+git push origin dev
+```
 
 Download built binaries from the [releases section](https://github.com/jgraph/drawio-desktop/releases).
 

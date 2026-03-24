@@ -1,0 +1,23 @@
+README.md
+  4b73877aa4b3f285 2,4,8-88
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.17",
+  "base_commit_sha": "27887e760d0fb43685d0a5d3f2cb0c4c3b0c9198",
+  "prompts": {
+    "4b73877aa4b3f285": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "60e4c291-a229-4f4f-a299-20ae1519489f",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Arda Uzun <auzun008@gmail.com>",
+      "messages": [],
+      "total_additions": 85,
+      "total_deletions": 1,
+      "accepted_lines": 85,
+      "overriden_lines": 0
+    }
+  }
+}

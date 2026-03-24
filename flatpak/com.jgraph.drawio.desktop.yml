@@ -1,0 +1,38 @@
+app-id: com.jgraph.drawio.desktop
+runtime: org.freedesktop.Platform
+runtime-version: '24.08'
+sdk: org.freedesktop.Sdk
+base: org.electronjs.Electron2.BaseApp
+base-version: '24.08'
+command: drawio-wrapper.sh
+
+finish-args:
+  - --share=ipc
+  - --socket=x11
+  - --socket=wayland
+  - --socket=pulseaudio
+  - --device=dri
+  - --share=network
+  - --filesystem=home
+  - --filesystem=/tmp
+  - --talk-name=org.freedesktop.Notifications
+
+modules:
+  - name: drawio-desktop
+    buildsystem: simple
+    sources:
+      - type: dir
+        path: ../dist/linux-unpacked
+    build-commands:
+      - mkdir -p /app/drawio
+      - cp -a . /app/drawio/
+      - install -Dm755 drawio-wrapper.sh /app/bin/drawio-wrapper.sh
+      - install -Dm644 com.jgraph.drawio.desktop.desktop /app/share/applications/com.jgraph.drawio.desktop.desktop
+      - install -Dm644 com.jgraph.drawio.desktop.metainfo.xml /app/share/metainfo/com.jgraph.drawio.desktop.metainfo.xml
+      - install -Dm644 icon.svg /app/share/icons/hicolor/scalable/apps/com.jgraph.drawio.desktop.svg
+      - |
+        for size in 16 32 48 64 128 256 512; do
+          if [ -f "${size}x${size}.png" ]; then
+            install -Dm644 "${size}x${size}.png" "/app/share/icons/hicolor/${size}x${size}/apps/com.jgraph.drawio.desktop.png"
+          fi
+        done

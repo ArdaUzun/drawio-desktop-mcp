@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=draw.io (MCP)
+Comment=draw.io Desktop with MCP AI Agent Support
+Exec=drawio-wrapper.sh %U
+Icon=com.jgraph.drawio.desktop
+Terminal=false
+Type=Application
+Categories=Graphics;
+StartupWMClass=draw.io
+MimeType=application/vnd.jgraph.mxfile;

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.jgraph.drawio.desktop</id>
+  <name>draw.io (MCP)</name>
+  <summary>Diagramming tool with AI agent support via MCP</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>Apache-2.0</project_license>
+  <description>
+    <p>draw.io Desktop is a free diagramming application for creating flowcharts, UML diagrams, network diagrams, and more. This version includes a built-in MCP (Model Context Protocol) server that allows AI agents to create and edit diagrams programmatically.</p>
+  </description>
+  <launchable type="desktop-id">com.jgraph.drawio.desktop.desktop</launchable>
+  <url type="homepage">https://github.com/jgraph/drawio-desktop</url>
+  <content_rating type="oars-1.1" />
+</component>
